@@ -5,7 +5,7 @@ using System.Text;
 
 namespace WindowsApplication1
 {
-    class ProjCodeHandler
+    public class ProjCodeHandler
     {
         public string ProjectCode { get; set; }
 
@@ -13,6 +13,10 @@ namespace WindowsApplication1
 
         public double ProjCodeHours { get; set; }
 
-       
+        public double TotProjCodeHours { get; set; }
+
+        public Dictionary<string, double> ProjectHourPairs { get; set; }
+
+
     }
 }

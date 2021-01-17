@@ -1,5 +1,6 @@
 using System;
 using System.Windows.Forms;
+using System.Collections.Generic;
 
 namespace WindowsApplication1
 {
@@ -7,11 +8,12 @@ namespace WindowsApplication1
     {
         public Form1()
         {
-            InitializeComponent();
+            InitializeComponent();            
+
         }
 
         decimal _mTotal = 0;
-
+        ProjCodeHandler projHandlr = new ProjCodeHandler();
         /// <summary>
         /// Idè! Skapa en applikation/webbsida som räknar ut hur många timmar och minuter
         /// Som gått när man matar in klockslag under en dag och sedan efter avdrag 
@@ -136,18 +138,81 @@ namespace WindowsApplication1
         }
 
         private void Form1_Load(object sender, EventArgs e)
-        {
+        {           
             numH1.Value = 7;
             numH2.Value = 30;
             numH3.Value = 16;
             numH4.Value = 15;
             numLun.Value = 45;
             chkLun.Checked = true;
+
+            //Create new instance of projCodeHandler and then new list instance to be able to add items.
+            
+            projHandlr.ProjectCodes = new List<string>();
+
+            projHandlr.ProjectCodes.Add("P943103: Market Improvements.");
+            projHandlr.ProjectCodes.Add("P943104: Market Field Quality Improvement.");
+            projHandlr.ProjectCodes.Add("C100462: Line related activities.");
+            projHandlr.ProjectCodes.Add("C100463: Education/Conferences.");
+
+            //Add list to combobox
+            cmbProjects.Items.AddRange(projHandlr.ProjectCodes.ToArray());
         }
 
         private void Form1_Activated(object sender, EventArgs e)
         {
             numH1.Focus();
+        }
+
+        private void btnAddProjHours_Click(object sender, EventArgs e)
+        {
+            double projHour = projHandlr.ProjCodeHours;
+            bool valProjHour = double.TryParse(txtProjHours.Text, out projHour);
+            if (!valProjHour)
+            {
+                MessageBox.Show("Only numbers aloud!");
+            }
+            else
+            {
+                projHandlr.TotProjCodeHours += projHour;
+                projHandlr.ProjectHourPairs = new Dictionary<string, double>();
+                projHandlr.ProjectHourPairs.Add(cmbProjects.Text, projHour);
+                rchProjTotal.AppendText(cmbProjects.Text + " - " + projHour.ToString() + " hours.\n");
+            }
+                
+            
+        }
+
+        private void btnAddCode_Click(object sender, EventArgs e)
+        {
+            cmbProjects.Items.Add(txtAddProj.Text);
+        }
+
+        private void btnRmvSingle_Click(object sender, EventArgs e)
+        {
+            //TODO: Also remove from richtextbox!
+            if (projHandlr.TotProjCodeHours!=0)
+            {
+                double dictValue = 0;
+                bool getDictValue = projHandlr.ProjectHourPairs.TryGetValue(cmbProjects.Text, out dictValue);
+                projHandlr.TotProjCodeHours -= dictValue;
+                projHandlr.ProjectHourPairs.Remove(cmbProjects.Text);
+                SendKeys.Send("DELETE");
+            }
+        }
+
+        private void btnCalcToProjHours_Click(object sender, EventArgs e)
+        {
+            rchProjTotal.AppendText("\n\n******** Total Project hours: " + projHandlr.TotProjCodeHours.ToString() + " ********");
+        }
+
+        private void btnResetProjHours_Click(object sender, EventArgs e)
+        {
+            rchProjTotal.Clear();
+            txtProjHours.Clear();
+            projHandlr.ProjectHourPairs.Clear();
+            projHandlr.TotProjCodeHours = 0;
+            projHandlr.ProjectCodes.Clear();
         }
     }
 }

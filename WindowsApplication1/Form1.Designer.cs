@@ -30,13 +30,17 @@ namespace WindowsApplication1
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.grpBox1 = new System.Windows.Forms.GroupBox();
-            this.lblAddProjCode = new System.Windows.Forms.Label();
-            this.txtAddProj = new System.Windows.Forms.TextBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.lblListProjCodes = new System.Windows.Forms.Label();
+            this.btnAddCode = new System.Windows.Forms.Button();
+            this.btnResetProjHours = new System.Windows.Forms.Button();
+            this.btnAddProjHours = new System.Windows.Forms.Button();
+            this.btnCalcToProjHours = new System.Windows.Forms.Button();
             this.txtProjHours = new System.Windows.Forms.TextBox();
             this.lblHours = new System.Windows.Forms.Label();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.rchProjTotal = new System.Windows.Forms.RichTextBox();
+            this.lblListProjCodes = new System.Windows.Forms.Label();
+            this.cmbProjects = new System.Windows.Forms.ComboBox();
+            this.txtAddProj = new System.Windows.Forms.TextBox();
+            this.lblAddProjCode = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
@@ -52,9 +56,7 @@ namespace WindowsApplication1
             this.label1 = new System.Windows.Forms.Label();
             this.btnCalculate = new System.Windows.Forms.Button();
             this.grpClockCalc = new System.Windows.Forms.GroupBox();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
+            this.btnRmvSingle = new System.Windows.Forms.Button();
             this.grpBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numH2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numLun)).BeginInit();
@@ -66,85 +68,128 @@ namespace WindowsApplication1
             // 
             // grpBox1
             // 
-            this.grpBox1.Controls.Add(this.button5);
-            this.grpBox1.Controls.Add(this.button4);
-            this.grpBox1.Controls.Add(this.button3);
-            this.grpBox1.Controls.Add(this.richTextBox1);
-            this.grpBox1.Controls.Add(this.lblHours);
+            this.grpBox1.Controls.Add(this.btnRmvSingle);
+            this.grpBox1.Controls.Add(this.btnAddCode);
+            this.grpBox1.Controls.Add(this.btnResetProjHours);
+            this.grpBox1.Controls.Add(this.btnAddProjHours);
+            this.grpBox1.Controls.Add(this.btnCalcToProjHours);
             this.grpBox1.Controls.Add(this.txtProjHours);
+            this.grpBox1.Controls.Add(this.lblHours);
+            this.grpBox1.Controls.Add(this.rchProjTotal);
             this.grpBox1.Controls.Add(this.lblListProjCodes);
-            this.grpBox1.Controls.Add(this.comboBox1);
+            this.grpBox1.Controls.Add(this.cmbProjects);
             this.grpBox1.Controls.Add(this.txtAddProj);
             this.grpBox1.Controls.Add(this.lblAddProjCode);
             this.grpBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grpBox1.Location = new System.Drawing.Point(37, 450);
+            this.grpBox1.Location = new System.Drawing.Point(37, 424);
             this.grpBox1.Name = "grpBox1";
-            this.grpBox1.Size = new System.Drawing.Size(885, 370);
+            this.grpBox1.Size = new System.Drawing.Size(905, 396);
             this.grpBox1.TabIndex = 21;
             this.grpBox1.TabStop = false;
-            this.grpBox1.Text = "Project code handling";
+            this.grpBox1.Text = "Project code handler";
             // 
-            // lblAddProjCode
+            // btnAddCode
             // 
-            this.lblAddProjCode.AutoSize = true;
-            this.lblAddProjCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAddProjCode.Location = new System.Drawing.Point(23, 51);
-            this.lblAddProjCode.Name = "lblAddProjCode";
-            this.lblAddProjCode.Size = new System.Drawing.Size(150, 18);
-            this.lblAddProjCode.TabIndex = 0;
-            this.lblAddProjCode.Text = "Add new project code";
+            this.btnAddCode.Location = new System.Drawing.Point(190, 305);
+            this.btnAddCode.Name = "btnAddCode";
+            this.btnAddCode.Size = new System.Drawing.Size(102, 33);
+            this.btnAddCode.TabIndex = 15;
+            this.btnAddCode.Text = "Add code";
+            this.btnAddCode.UseVisualStyleBackColor = true;
+            this.btnAddCode.Click += new System.EventHandler(this.btnAddCode_Click);
             // 
-            // txtAddProj
+            // btnResetProjHours
             // 
-            this.txtAddProj.Location = new System.Drawing.Point(26, 84);
-            this.txtAddProj.Name = "txtAddProj";
-            this.txtAddProj.Size = new System.Drawing.Size(369, 27);
-            this.txtAddProj.TabIndex = 9;
-            this.txtAddProj.Text = "Project Code";
+            this.btnResetProjHours.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnResetProjHours.Location = new System.Drawing.Point(610, 320);
+            this.btnResetProjHours.Margin = new System.Windows.Forms.Padding(4);
+            this.btnResetProjHours.Name = "btnResetProjHours";
+            this.btnResetProjHours.Size = new System.Drawing.Size(143, 54);
+            this.btnResetProjHours.TabIndex = 14;
+            this.btnResetProjHours.Text = "Reset Project hours";
+            this.btnResetProjHours.UseVisualStyleBackColor = true;
+            this.btnResetProjHours.Click += new System.EventHandler(this.btnResetProjHours_Click);
             // 
-            // comboBox1
+            // btnAddProjHours
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(26, 161);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(369, 28);
-            this.comboBox1.TabIndex = 10;
-            this.comboBox1.Text = "P943103 (Market Improvements)";
+            this.btnAddProjHours.Location = new System.Drawing.Point(203, 128);
+            this.btnAddProjHours.Name = "btnAddProjHours";
+            this.btnAddProjHours.Size = new System.Drawing.Size(196, 36);
+            this.btnAddProjHours.TabIndex = 12;
+            this.btnAddProjHours.Text = "Add hours to project";
+            this.btnAddProjHours.UseVisualStyleBackColor = true;
+            this.btnAddProjHours.Click += new System.EventHandler(this.btnAddProjHours_Click);
             // 
-            // lblListProjCodes
+            // btnCalcToProjHours
             // 
-            this.lblListProjCodes.AutoSize = true;
-            this.lblListProjCodes.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblListProjCodes.Location = new System.Drawing.Point(23, 140);
-            this.lblListProjCodes.Name = "lblListProjCodes";
-            this.lblListProjCodes.Size = new System.Drawing.Size(114, 18);
-            this.lblListProjCodes.TabIndex = 3;
-            this.lblListProjCodes.Text = "Project code list";
+            this.btnCalcToProjHours.Location = new System.Drawing.Point(445, 320);
+            this.btnCalcToProjHours.Name = "btnCalcToProjHours";
+            this.btnCalcToProjHours.Size = new System.Drawing.Size(137, 54);
+            this.btnCalcToProjHours.TabIndex = 13;
+            this.btnCalcToProjHours.Text = "Calculate Total Project hours";
+            this.btnCalcToProjHours.UseVisualStyleBackColor = true;
+            this.btnCalcToProjHours.Click += new System.EventHandler(this.btnCalcToProjHours_Click);
             // 
             // txtProjHours
             // 
-            this.txtProjHours.Location = new System.Drawing.Point(26, 232);
+            this.txtProjHours.Location = new System.Drawing.Point(21, 145);
             this.txtProjHours.Name = "txtProjHours";
-            this.txtProjHours.Size = new System.Drawing.Size(121, 27);
+            this.txtProjHours.Size = new System.Drawing.Size(147, 27);
             this.txtProjHours.TabIndex = 11;
             // 
             // lblHours
             // 
             this.lblHours.AutoSize = true;
-            this.lblHours.Location = new System.Drawing.Point(22, 209);
+            this.lblHours.Location = new System.Drawing.Point(17, 122);
             this.lblHours.Name = "lblHours";
             this.lblHours.Size = new System.Drawing.Size(106, 20);
             this.lblHours.TabIndex = 5;
             this.lblHours.Text = "Hour amount";
             // 
-            // richTextBox1
+            // rchProjTotal
             // 
-            this.richTextBox1.Enabled = false;
-            this.richTextBox1.Location = new System.Drawing.Point(430, 29);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(382, 227);
-            this.richTextBox1.TabIndex = 6;
-            this.richTextBox1.Text = "";
+            this.rchProjTotal.Location = new System.Drawing.Point(415, 26);
+            this.rchProjTotal.Name = "rchProjTotal";
+            this.rchProjTotal.Size = new System.Drawing.Size(468, 273);
+            this.rchProjTotal.TabIndex = 6;
+            this.rchProjTotal.Text = "";
+            // 
+            // lblListProjCodes
+            // 
+            this.lblListProjCodes.AutoSize = true;
+            this.lblListProjCodes.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblListProjCodes.Location = new System.Drawing.Point(14, 53);
+            this.lblListProjCodes.Name = "lblListProjCodes";
+            this.lblListProjCodes.Size = new System.Drawing.Size(231, 18);
+            this.lblListProjCodes.TabIndex = 3;
+            this.lblListProjCodes.Text = "Select code from Project code list";
+            // 
+            // cmbProjects
+            // 
+            this.cmbProjects.FormattingEnabled = true;
+            this.cmbProjects.Location = new System.Drawing.Point(17, 74);
+            this.cmbProjects.Name = "cmbProjects";
+            this.cmbProjects.Size = new System.Drawing.Size(382, 28);
+            this.cmbProjects.TabIndex = 10;
+            this.cmbProjects.Text = "P943103 (Market Improvements)";
+            // 
+            // txtAddProj
+            // 
+            this.txtAddProj.Location = new System.Drawing.Point(21, 272);
+            this.txtAddProj.Name = "txtAddProj";
+            this.txtAddProj.Size = new System.Drawing.Size(271, 27);
+            this.txtAddProj.TabIndex = 9;
+            this.txtAddProj.Text = "Project Code";
+            // 
+            // lblAddProjCode
+            // 
+            this.lblAddProjCode.AutoSize = true;
+            this.lblAddProjCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAddProjCode.Location = new System.Drawing.Point(18, 235);
+            this.lblAddProjCode.Name = "lblAddProjCode";
+            this.lblAddProjCode.Size = new System.Drawing.Size(150, 18);
+            this.lblAddProjCode.TabIndex = 0;
+            this.lblAddProjCode.Text = "Add new project code";
             // 
             // button1
             // 
@@ -335,39 +380,20 @@ namespace WindowsApplication1
             this.grpClockCalc.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.grpClockCalc.Location = new System.Drawing.Point(37, 44);
             this.grpClockCalc.Name = "grpClockCalc";
-            this.grpClockCalc.Size = new System.Drawing.Size(885, 361);
+            this.grpClockCalc.Size = new System.Drawing.Size(905, 361);
             this.grpClockCalc.TabIndex = 22;
             this.grpClockCalc.TabStop = false;
             this.grpClockCalc.Text = "Calculate work hours";
             // 
-            // button3
+            // btnRmvSingle
             // 
-            this.button3.Location = new System.Drawing.Point(161, 226);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(234, 36);
-            this.button3.TabIndex = 12;
-            this.button3.Text = "Add hours to project";
-            this.button3.UseVisualStyleBackColor = true;
-            // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(458, 283);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(137, 54);
-            this.button4.TabIndex = 13;
-            this.button4.Text = "Calculate Total Project hours";
-            this.button4.UseVisualStyleBackColor = true;
-            // 
-            // button5
-            // 
-            this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button5.Location = new System.Drawing.Point(638, 283);
-            this.button5.Margin = new System.Windows.Forms.Padding(4);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(143, 54);
-            this.button5.TabIndex = 14;
-            this.button5.Text = "Reset Project hours";
-            this.button5.UseVisualStyleBackColor = true;
+            this.btnRmvSingle.Location = new System.Drawing.Point(203, 170);
+            this.btnRmvSingle.Name = "btnRmvSingle";
+            this.btnRmvSingle.Size = new System.Drawing.Size(196, 37);
+            this.btnRmvSingle.TabIndex = 16;
+            this.btnRmvSingle.Text = "Remove project hours";
+            this.btnRmvSingle.UseVisualStyleBackColor = true;
+            this.btnRmvSingle.Click += new System.EventHandler(this.btnRmvSingle_Click);
             // 
             // Form1
             // 
@@ -398,10 +424,10 @@ namespace WindowsApplication1
         #endregion
         private System.Windows.Forms.GroupBox grpBox1;
         private System.Windows.Forms.Label lblListProjCodes;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cmbProjects;
         private System.Windows.Forms.TextBox txtAddProj;
         private System.Windows.Forms.Label lblAddProjCode;
-        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.RichTextBox rchProjTotal;
         private System.Windows.Forms.Label lblHours;
         private System.Windows.Forms.TextBox txtProjHours;
         private System.Windows.Forms.Button button1;
@@ -419,9 +445,11 @@ namespace WindowsApplication1
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnCalculate;
         private System.Windows.Forms.GroupBox grpClockCalc;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button btnResetProjHours;
+        private System.Windows.Forms.Button btnCalcToProjHours;
+        private System.Windows.Forms.Button btnAddProjHours;
+        private System.Windows.Forms.Button btnAddCode;
+        private System.Windows.Forms.Button btnRmvSingle;
     }
 }
 
