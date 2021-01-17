@@ -1,5 +1,7 @@
 using System;
 using System.Windows.Forms;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace WindowsApplication1
 {
@@ -7,11 +9,12 @@ namespace WindowsApplication1
     {
         public Form1()
         {
-            InitializeComponent();
+            InitializeComponent();            
+
         }
 
         decimal _mTotal = 0;
-
+        ProjCodeHandler projHandlr = new ProjCodeHandler();
         /// <summary>
         /// Idè! Skapa en applikation/webbsida som räknar ut hur många timmar och minuter
         /// Som gått när man matar in klockslag under en dag och sedan efter avdrag 
@@ -115,10 +118,10 @@ namespace WindowsApplication1
 
             if (chkLun.Checked)
             {
-                rchTotal.AppendText(" ****** " + HMToClock.ToString() + "," + roundMinSixty.ToString() + " hours incl. lunch ******" + "\r");
+                rchTotal.AppendText(" ****** " + HMToClock.ToString() + " hours, " + roundMinSixty.ToString() + " minutes incl. lunch ******" + "\r");
             }
             else
-                rchTotal.AppendText(" ****** " + HMToClock.ToString() + "," + roundMinSixty.ToString() + " hours excl. lunch ******" + "\r");
+                rchTotal.AppendText(" ****** " + HMToClock.ToString() + " hours, " + roundMinSixty.ToString() + " minutes excl. lunch ******" + "\r");
         }
 
 
@@ -143,11 +146,165 @@ namespace WindowsApplication1
             numH4.Value = 15;
             numLun.Value = 45;
             chkLun.Checked = true;
+
+            AddDefProjCodeList();
+        }
+
+        private void AddDefProjCodeList()
+        {
+            //Create new instance of projCodeHandler and then new list instance to be able to add items.
+
+            projHandlr.ProjectCodes = new List<string>();
+
+            projHandlr.ProjectCodes.Add("P943103: Market Improvements.");
+            projHandlr.ProjectCodes.Add("P943104: Market Field Quality Improvement.");
+            projHandlr.ProjectCodes.Add("C100462: Line related activities.");
+            projHandlr.ProjectCodes.Add("C100463: Education/Conferences.");
+
+            //Add list to combobox
+            cmbProjects.Items.AddRange(projHandlr.ProjectCodes.ToArray());
         }
 
         private void Form1_Activated(object sender, EventArgs e)
         {
             numH1.Focus();
+        }
+
+        private void btnAddProjHours_Click(object sender, EventArgs e)
+        {
+            double projHour = projHandlr.ProjCodeHours;
+            bool valProjHour = double.TryParse(txtProjHours.Text, out projHour);
+            if (!valProjHour)
+            {
+                MessageBox.Show("Only numbers aloud and hour has to be more than zero!");
+            }
+            else
+            {
+                projHandlr.rchBoxIndex++;
+                projHandlr.TotProjCodeHours += projHour;
+                projHandlr.ProjectHourPairs = new Dictionary<string, double>();
+                projHandlr.ProjectHourPairs.Add(cmbProjects.Text, projHour);
+                rchProjTotal.AppendText(cmbProjects.Text + " - " + projHour.ToString() + " hours.\n");
+            }
+                
+            
+        }
+
+        private void btnAddCode_Click(object sender, EventArgs e)
+        {
+            if(!cmbProjects.Items.Contains(txtAddProj.Text))
+            {
+                cmbProjects.Items.Add(txtAddProj.Text);
+                cmbProjects.Text = txtAddProj.Text;
+                btnRmvProjCodeFromList.Enabled = true;
+                btnResetList.Enabled = true;                
+                MessageBox.Show("Project code " + txtAddProj.Text + " has been added to project list!");
+                txtAddProj.Clear();
+            }
+            else
+            {
+                MessageBox.Show("No duplicates aloud!");
+            }
+        }
+
+        private void btnRmvSingle_Click(object sender, EventArgs e)
+        {
+            //TODO: Also remove from richtextbox!
+            //Integer that counts lines in richtextbox.
+            List<int> lineLeng = new List<int>();
+
+            if (projHandlr.TotProjCodeHours != 0)
+            {
+                DialogResult result = MessageBox.Show("Are you sure you want to remove project code and hours?",
+           "User Input required",
+           MessageBoxButtons.YesNo);
+
+                //TODO: Add index for each added proj number
+                if (result == DialogResult.Yes)
+                {
+                    double dictValue = 0;
+                    bool getDictValue = projHandlr.ProjectHourPairs.TryGetValue(cmbProjects.Text, out dictValue);
+                    projHandlr.TotProjCodeHours -= dictValue;
+                    projHandlr.ProjectHourPairs.Remove(cmbProjects.Text);
+                    //rchProjTotal.Focus();
+
+                    for(int i = 0; i< rchProjTotal.Lines.Length; i++)
+                    {
+                        lineLeng.Add(rchProjTotal.Lines[i].Length);
+
+                        if (rchProjTotal.Lines[i].Contains(cmbProjects.Text) && lineLeng[i] != 0)
+                        {
+                            //From https://stackoverflow.com/questions/1329347/delete-a-specific-line-in-a-net-richtextbox
+                            rchProjTotal.SelectionStart = rchProjTotal.GetFirstCharIndexFromLine(i);
+                            rchProjTotal.SelectionLength = this.rchProjTotal.Lines[i].Length + 1;
+                            this.rchProjTotal.SelectedText = String.Empty;
+                        }
+                            
+                           
+                    }
+
+                  
+                }
+            }
+            else
+                MessageBox.Show("There is no work hours added yet!");
+        }
+
+        private void btnCalcToProjHours_Click(object sender, EventArgs e)
+        {
+            if (projHandlr.TotProjCodeHours!=0)
+            {
+              rchProjTotal.AppendText("\n ******** Total Project hours: " + projHandlr.TotProjCodeHours.ToString() + " ********\n\n");
+            }
+            else
+            {
+                MessageBox.Show("There is no work hours added yet!");
+            }
+            
+        }
+
+        private void btnResetProjHours_Click(object sender, EventArgs e)
+        {
+            if (projHandlr.TotProjCodeHours != 0)
+            {
+                DialogResult result = MessageBox.Show("Are you sure you want to remove project code and hours?",
+           "User Input required",
+           MessageBoxButtons.YesNo);
+
+                if (result == DialogResult.Yes)
+                {
+                    rchProjTotal.Clear();
+                    txtProjHours.Clear();
+                    projHandlr.ProjectHourPairs.Clear();
+                    projHandlr.TotProjCodeHours = 0;
+                    projHandlr.ProjectCodes.Clear();
+                    rchProjTotal.Clear();
+                }
+            }
+            else
+                MessageBox.Show("There is no work hours added yet!");
+        }
+
+        private void btnRmvProjCodeFromList_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Are you sure you want to remove project code from list?",
+           "User Input required",
+           MessageBoxButtons.YesNo);
+
+            if (result == DialogResult.Yes)
+            {
+                cmbProjects.Items.Remove(cmbProjects.SelectedItem);
+            }
+            else
+                MessageBox.Show("There is no project codes added yet!");
+        }
+
+        private void btnResetList_Click(object sender, EventArgs e)
+        {
+            cmbProjects.Items.Clear();
+            cmbProjects.Text = "";
+            AddDefProjCodeList();
+            MessageBox.Show("Clearing project code list DONE!");
         }
     }
 }
