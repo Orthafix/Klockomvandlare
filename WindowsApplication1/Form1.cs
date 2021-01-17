@@ -1,9 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 
 namespace WindowsApplication1
@@ -53,7 +48,7 @@ namespace WindowsApplication1
             {
                 MessageBox.Show("Från-klockan får ej vara senare än Till-klockan.", "Fel klockhänvisning!", MessageBoxButtons.OK);
             }
-            else 
+            else
             {
                 timTot = timRes2 - timRes1;
 
@@ -87,42 +82,43 @@ namespace WindowsApplication1
             decimal lunchTid = numLun.Value;
             decimal totMin = _mTotal;
             if (chkLun.Checked)
-                {
-                    totMin = totMin - lunchTid;
-                }
-                decimal totTimMin = Math.Round((totMin / 60), 2);
-               
- 
-                string HM = totTimMin.ToString();
-                double checkInteger = double.Parse(HM);
-                //If no minutes then add ",0" for the splitter
-                if (checkInteger % 1 == 0)
-                {
-                    HM += ",0";
-                }
-               
-                string[] hourSplitter = HM.Split(','); //splittar mellan timmar och minuter
-                string hundredsToSixties = "0," + hourSplitter[1].ToString();
+            {
+                totMin = totMin - lunchTid;
+            }
+            decimal totTimMin = Math.Round((totMin / 60), 2);
 
-                //A variable that should handle if minutes has pre-tracing zeros
-                string preZeroInMinCheckString = hourSplitter[1].ToString();
-                //If second decimal has 0 prefix - remove zero
-                if (preZeroInMinCheckString.StartsWith("0"))
-                {
+
+            string HM = totTimMin.ToString();
+            double checkInteger = double.Parse(HM);
+            //If no minutes then add ",0" for the splitter
+            if (checkInteger % 1 == 0)
+            {
+                HM += ",0";
+            }
+
+            string[] hourSplitter = HM.Split(','); //splittar mellan timmar och minuter
+            string hundredsToSixties = "0," + hourSplitter[1].ToString();
+
+            //A variable that should handle if minutes has pre-tracing zeros
+            string preZeroInMinCheckString = hourSplitter[1].ToString();
+
+            //If second decimal has 0 prefix - remove zero
+            if (preZeroInMinCheckString.StartsWith("0"))
+            {
                 hundredsToSixties.Remove(0, 1);
-                }
+            }
 
-                double MinSixty = double.Parse(hundredsToSixties) * 60;
-                double roundMinSixty = Math.Round(MinSixty);
-                double HMToClock = double.Parse(hourSplitter[0]);
+            double MinSixty = double.Parse(hundredsToSixties) * 60;
+            double roundMinSixty = Math.Round(MinSixty);
+            double HMToClock = double.Parse(hourSplitter[0]);
 
 
             if (chkLun.Checked)
             {
-                rchTotal.AppendText(" ****** " + HMToClock.ToString() + "," + roundMinSixty.ToString() + " timmar inkl. lunch ******" + "\r");
+                rchTotal.AppendText(" ****** " + HMToClock.ToString() + "," + roundMinSixty.ToString() + " hours incl. lunch ******" + "\r");
             }
             else
-            rchTotal.AppendText(" ****** " + HMToClock.ToString() + "," + roundMinSixty.ToString() +  " timmar exkl. lunch ******" + "\r"); 
+                rchTotal.AppendText(" ****** " + HMToClock.ToString() + "," + roundMinSixty.ToString() + " hours excl. lunch ******" + "\r");
         }
 
 
@@ -130,22 +126,28 @@ namespace WindowsApplication1
         {
             btnCalculate.Enabled = true;
             rchTotal.ResetText();
-            numH1.Value = 8;
-            numH2.Value = 0;
-            numH3.Value = 8;
-            numH4.Value = 0;
+            numH1.Value = 7;
+            numH2.Value = 30;
+            numH3.Value = 16;
+            numH4.Value = 15;
             numLun.Value = 45;
+            chkLun.Checked = true;
             _mTotal = 0;
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            numH1.Value = 8;
-            numH3.Value = 8;
+            numH1.Value = 7;
+            numH2.Value = 30;
+            numH3.Value = 16;
+            numH4.Value = 15;
             numLun.Value = 45;
             chkLun.Checked = true;
         }
 
-       
+        private void Form1_Activated(object sender, EventArgs e)
+        {
+            numH1.Focus();
+        }
     }
 }

@@ -1,0 +1,15 @@
+﻿Version 1.0 - Clock work - Calculate work time
+Includes
+# Start - and stop time 
+# Calculating and displaying accumulated and total time
+
+#TODO Next 
+# Make a website (a new project containing above functions)
+# Optimizations on that project and website will be including:
+# The website should be made in plain HTML, CSS and javascript and should have a JSON database for data storage
+# Make it possible to add own project codes or work description
+# Make it possible to add cuts like, flextime, child care, calling sick, vacation and so on.
+# A date time picker for each day
+# Last but not least - a log in for users to register their user profile and save their work hours etc.
+# Alot of adds via Google Adds or whatever!!!
+# These mile stones has to be worked out in iterations and incremental in stages according to scrum
