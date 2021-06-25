@@ -59,6 +59,7 @@ namespace WindowsApplication1
             this.label1 = new System.Windows.Forms.Label();
             this.btnCalculate = new System.Windows.Forms.Button();
             this.grpClockCalc = new System.Windows.Forms.GroupBox();
+            this.btnOpenCalc = new System.Windows.Forms.Button();
             this.grpBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numH2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numLun)).BeginInit();
@@ -387,7 +388,7 @@ namespace WindowsApplication1
             // btnCalculate
             // 
             this.btnCalculate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCalculate.Location = new System.Drawing.Point(133, 243);
+            this.btnCalculate.Location = new System.Drawing.Point(133, 198);
             this.btnCalculate.Margin = new System.Windows.Forms.Padding(4);
             this.btnCalculate.Name = "btnCalculate";
             this.btnCalculate.Size = new System.Drawing.Size(152, 46);
@@ -398,6 +399,7 @@ namespace WindowsApplication1
             // 
             // grpClockCalc
             // 
+            this.grpClockCalc.Controls.Add(this.btnOpenCalc);
             this.grpClockCalc.Controls.Add(this.btnCalculate);
             this.grpClockCalc.Controls.Add(this.rchTotal);
             this.grpClockCalc.Controls.Add(this.label2);
@@ -419,6 +421,19 @@ namespace WindowsApplication1
             this.grpClockCalc.TabIndex = 22;
             this.grpClockCalc.TabStop = false;
             this.grpClockCalc.Text = "Calculate work hours";
+            // 
+            // btnOpenCalc
+            // 
+            this.btnOpenCalc.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnOpenCalc.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.btnOpenCalc.Location = new System.Drawing.Point(134, 265);
+            this.btnOpenCalc.Margin = new System.Windows.Forms.Padding(4);
+            this.btnOpenCalc.Name = "btnOpenCalc";
+            this.btnOpenCalc.Size = new System.Drawing.Size(152, 46);
+            this.btnOpenCalc.TabIndex = 21;
+            this.btnOpenCalc.Text = "Open Calculator";
+            this.btnOpenCalc.UseVisualStyleBackColor = true;
+            this.btnOpenCalc.Click += new System.EventHandler(this.btnOpenCalc_Click);
             // 
             // Form1
             // 
@@ -477,6 +492,7 @@ namespace WindowsApplication1
         private System.Windows.Forms.Button btnRmvSingle;
         private System.Windows.Forms.Button btnRmvProjCodeFromList;
         private System.Windows.Forms.Button btnResetList;
+        private System.Windows.Forms.Button btnOpenCalc;
     }
 }
 

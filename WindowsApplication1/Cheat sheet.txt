@@ -1,0 +1,5 @@
+﻿If you get Severity	Code	Description	Project	File	Line	Suppression State
+Error		An error occurred while signing: Failed to sign bin\Debug\app.publish\WindowsApplication1.exe. SignTool Error: No certificates were found that met all the given criteria.	KlockOmvandlare			
+Do this:
+Go to main project properties > Signing > If the expiration date is over > click on Create Test Certificate, 
+password is not mandatory, and you're done.

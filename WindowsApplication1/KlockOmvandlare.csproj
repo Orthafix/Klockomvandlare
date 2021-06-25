@@ -9,8 +9,8 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>WindowsApplication1</RootNamespace>
     <AssemblyName>WindowsApplication1</AssemblyName>
-    <ManifestCertificateThumbprint>14BE6904AB87B4D8B942064B27569518FBEAE8CD</ManifestCertificateThumbprint>
-    <ManifestKeyFile>KlockOmvandlare_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestCertificateThumbprint>B2BF46067862391B28075638256D236131243AA8</ManifestCertificateThumbprint>
+    <ManifestKeyFile>KlockOmvandlare_1_TemporaryKey.pfx</ManifestKeyFile>
     <GenerateManifests>true</GenerateManifests>
     <SignManifests>true</SignManifests>
     <IsWebBootstrapper>false</IsWebBootstrapper>
@@ -87,6 +87,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="KlockOmvandlare_1_TemporaryKey.pfx" />
     <None Include="KlockOmvandlare_TemporaryKey.pfx" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -111,6 +112,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Cheat sheet.txt" />
     <Content Include="Version History.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

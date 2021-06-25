@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Windows.Forms;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Threading;
 
 namespace WindowsApplication1
 {
@@ -304,6 +306,28 @@ namespace WindowsApplication1
             cmbProjects.Text = "";
             AddDefProjCodeList();
             MessageBox.Show("Clearing project code list DONE!");
+        }
+
+        /// <summary>
+        /// Opens the Windows Calculator
+        /// </summary>
+        /// <param name="hWndChild"></param>
+        /// <param name="hWndNewParent"></param>
+        /// <returns></returns>
+        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        static extern IntPtr SetParent(IntPtr hWndChild, IntPtr hWndNewParent);
+
+        private void btnOpenCalc_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog od = new OpenFileDialog();
+           
+            od.FileName = @"C:\Windows\System32\calc.exe";
+                
+                Process proc = Process.Start(od.FileName);
+                proc.WaitForInputIdle();
+              
+                SetParent(proc.MainWindowHandle, this.Handle);
+            
         }
     }
 }
