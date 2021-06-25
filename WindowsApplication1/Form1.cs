@@ -1,7 +1,6 @@
-using System;
+ï»¿using System;
 using System.Windows.Forms;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace WindowsApplication1
 {
@@ -16,13 +15,13 @@ namespace WindowsApplication1
         decimal _mTotal = 0;
         ProjCodeHandler projHandlr = new ProjCodeHandler();
         /// <summary>
-        /// Idè! Skapa en applikation/webbsida som räknar ut hur många timmar och minuter
-        /// Som gått när man matar in klockslag under en dag och sedan efter avdrag 
-        /// Av t ex. Lunch, räknar ut vad som blir över. Teknik: Ta en ny såsom python för att lära sig.
-	    /// • T ex. 08:00 - 09:15 + 10:15-13:00 + 15:00-17:00 (-lunch) == total antal timmar. 
-	    /// • Man ska kunna lägga till egna avdrag såsom vabb, FL eller sjukdom.
-	    /// • Ev. visa Arbetskoder som kan ändras och läggas till.
-	    /// • Totalen ska visas och differensen (vad som är egna arbetstiden och vad som är tidsavdrag).
+        /// Idï¿½! Skapa en applikation/webbsida som rï¿½knar ut hur mï¿½nga timmar och minuter
+        /// Som gï¿½tt nï¿½r man matar in klockslag under en dag och sedan efter avdrag 
+        /// Av t ex. Lunch, rï¿½knar ut vad som blir ï¿½ver. Teknik: Ta en ny sï¿½som python fï¿½r att lï¿½ra sig.
+	    /// ï¿½ T ex. 08:00 - 09:15 + 10:15-13:00 + 15:00-17:00 (-lunch) == total antal timmar. 
+	    /// ï¿½ Man ska kunna lï¿½gga till egna avdrag sï¿½som vabb, FL eller sjukdom.
+	    /// ï¿½ Ev. visa Arbetskoder som kan ï¿½ndras och lï¿½ggas till.
+	    /// ï¿½ Totalen ska visas och differensen (vad som ï¿½r egna arbetstiden och vad som ï¿½r tidsavdrag).
 
         /// </summary>
         /// TODO: Make total minutes work together with total hours and no hours, only minutes!  
@@ -30,7 +29,7 @@ namespace WindowsApplication1
         /// <param name="e"></param>
         private void button1_Click(object sender, EventArgs e)
         {
-            //Klocka från
+            //Klocka frï¿½n
             decimal h1 = numH1.Value;
             decimal h2 = numH2.Value;
 
@@ -42,21 +41,21 @@ namespace WindowsApplication1
             decimal minTot;
 
             // 1. h1 (60 min) * antal timmar i minuter. 
-            // 2. Sedan totala tiden blir sista klockslaget minus första klockslaget
+            // 2. Sedan totala tiden blir sista klockslaget minus fï¿½rsta klockslaget
             decimal timRes1 = h1 * 60;
             decimal timRes2 = h3 * 60;
 
-            //Validering för att säkerställa att "från-klockan" är mindre än "till-klockan"
+            //Validering fï¿½r att sï¿½kerstï¿½lla att "frï¿½n-klockan" ï¿½r mindre ï¿½n "till-klockan"
             if (timRes1 > timRes2)
             {
-                MessageBox.Show("Från-klockan får ej vara senare än Till-klockan.", "Fel klockhänvisning!", MessageBoxButtons.OK);
+                MessageBox.Show("Frï¿½n-klockan fï¿½r ej vara senare ï¿½n Till-klockan.", "Fel klockhï¿½nvisning!", MessageBoxButtons.OK);
             }
             else
             {
                 timTot = timRes2 - timRes1;
 
                 // 1. h2 - h4 = antal minuter
-                // 2. Sedan lägga till minuterna på den totala tiden
+                // 2. Sedan lï¿½gga till minuterna pï¿½ den totala tiden
                 minTot = h4 - h2;
 
                 timTot = timTot + minTot;
@@ -139,7 +138,7 @@ namespace WindowsApplication1
         }
 
         private void Form1_Load(object sender, EventArgs e)
-        {
+        {           
             numH1.Value = 7;
             numH2.Value = 30;
             numH3.Value = 16;
