@@ -85,12 +85,24 @@ namespace WindowsApplication1
             btnCalculate.Enabled = false;
             decimal lunchTid = numLun.Value;
             decimal totMin = _mTotal;
+            decimal rastTid = 15M;
+
             if (chkLun.Checked)
             {
                 totMin = totMin - lunchTid;
             }
-            decimal totTimMin = Math.Round((totMin / 60), 2);
+            //decimal totTimMin = Math.Round((totMin / 60), 2);
 
+            //If no break add it to working hours
+            if (!chkEmRast.Checked && !chkFmRast.Checked)
+            {
+                totMin = totMin + rastTid * 2;
+            }
+            else if (!chkEmRast.Checked || !chkFmRast.Checked)
+            {
+                totMin = totMin + rastTid;
+            }
+            decimal totTimMin = Math.Round((totMin / 60), 2);
 
             string HM = totTimMin.ToString();
             double checkInteger = double.Parse(HM);
@@ -136,6 +148,8 @@ namespace WindowsApplication1
             numH4.Value = 15;
             numLun.Value = 45;
             chkLun.Checked = true;
+            chkEmRast.Checked = true;
+            chkFmRast.Checked = true;
             _mTotal = 0;
         }
 
@@ -147,6 +161,8 @@ namespace WindowsApplication1
             numH4.Value = 15;
             numLun.Value = 45;
             chkLun.Checked = true;
+            chkFmRast.Checked = true;
+            chkEmRast.Checked = true;
 
             AddDefProjCodeList();
         }
@@ -329,5 +345,6 @@ namespace WindowsApplication1
                 SetParent(proc.MainWindowHandle, this.Handle);
             
         }
+
     }
 }
